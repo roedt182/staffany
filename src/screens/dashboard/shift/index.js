@@ -84,6 +84,10 @@ class Shift extends React.Component {
     }
   }
 
+  deleteData(id_shift){
+    console.log("id_shift", id_shift)
+  }
+
   render(){
     return (
       <div className="table-responsive">
@@ -110,6 +114,7 @@ class Shift extends React.Component {
               <th>Date</th>
               <th>Start Time</th>
               <th>End Time</th>
+              <th>Options</th>
             </tr>
           </thead>
           <tbody>
@@ -121,6 +126,11 @@ class Shift extends React.Component {
                   <td>{item.date}</td>
                   <td>{item.start}</td>
                   <td>{item.end}</td>
+                  <td>
+                    <button className="btn"><Link to={'/shift/view/'+item.id_shift}><Icon.Binoculars/></Link></button>
+                    <button className="btn"><Link to={'/shift/edit/'+item.id_shift}><Icon.PencilSquare/></Link></button>
+                    <button className="btn btn-link" onClick={()=>this.deleteData(item.id_shift)}><Icon.Trash/></button>
+                  </td>
                 </tr>
               )
             })

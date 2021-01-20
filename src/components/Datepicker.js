@@ -8,17 +8,31 @@ import "react-datepicker/dist/react-datepicker.css";
  
 const DatePickerComponent = (props) => {
   const [startDate, setStartDate] = useState(new Date());
-  useEffect(() => {props.dateChange(startDate);}, [props, startDate]);
+  const [clicked, setClicked] = useState(false);
+  const editDate = props.editDate ? props.editDate.split("-") : null;
+  const editTime = props.editTime ? props.editTime.split(":") : ["00","00"];
+
+  let editDateTime = null;
+
+  if(editDate){
+  	const newDate = new Date(editDate[0], editDate[1]-1, editDate[2], editTime[0], editTime[1]);
+  	editDateTime = newDate.getTime();
+  }
+
+  useEffect(() => {props.dateChange(props.editDate && !clicked ? editDateTime : startDate);}, [props, startDate, clicked, editDateTime]);
+
   return (
   	props.isTime ?
-    <DatePicker className="form-control" selected={startDate} onChange={date => setStartDate(date)} 
+    <DatePicker className="form-control" 
+      selected={props.editDate && !clicked ? editDateTime : startDate} 
+      onChange={date => {setStartDate(date);setClicked(true);}} 
       showTimeSelect
       showTimeSelectOnly
       timeIntervals={15}
       timeCaption="Time"
       dateFormat="h:mm aa"/>
   	:
-    <DatePicker className="form-control" selected={startDate} onChange={date => setStartDate(date)} dateFormat="dd/MM/yyyy"/>
+    <DatePicker className="form-control" selected={props.editDate && !clicked ? editDateTime : startDate} onChange={date => {setStartDate(date);setClicked(true);}} dateFormat="dd/MM/yyyy"/>
   );
 };
 

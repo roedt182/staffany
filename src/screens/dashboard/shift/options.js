@@ -18,7 +18,8 @@ class ShiftOptions extends React.Component {
       shiftData:{
         name:""
       },
-      staffData:[]
+      staffData:[],
+      shiftDetail:null,
     };
   }
 
@@ -26,7 +27,42 @@ class ShiftOptions extends React.Component {
     const option = this.props.option;
     if(option === "add"){
       this.getStaffData();
+    } else if(option === "view"){
+      this.getShiftDetail(this.props.shiftID)
+    } else if(option === "edit"){
+      this.getStaffData();
+      this.getShiftDetail(this.props.shiftID)
     }
+  }
+
+  getShiftDetail(shiftID){
+    const req={
+      method:'getShiftDetail',
+      params:{
+        id_shift: shiftID
+      }
+    };
+    const onSuccess=(response)=>{
+      if(response.error_message){
+        this.setState({
+          isError:true,
+          error_message: response.error_message,
+        });
+      } else {
+        this.setState({
+          isError:false,
+          error_message: "",
+          shiftData: response
+        });
+      }
+    }
+    const onError=(error)=>{
+      this.setState({
+        isError:true,
+        error_message: error.toString()
+      })
+    }
+    ApiService.open(req).then(onSuccess, onError);
   }
 
   getStaffData(){
@@ -89,7 +125,6 @@ class ShiftOptions extends React.Component {
     const getYear = dateValue.getFullYear();
     const selectedDate = getYear + '-' + getMonth + '-' + getDate;
     pickedDate = selectedDate;
-    console.log("pickedDate", pickedDate);
   }
 
   selectTime(time, option){
@@ -172,6 +207,63 @@ class ShiftOptions extends React.Component {
     ApiService.open(req).then(onSuccess, onError);
   }
 
+  handleEdit(){
+    if(!this.state.shiftData.id_staff){
+      this.setState({
+        isError: true,
+        error_message:"Please complete the form data."
+      });
+      return;
+    }
+
+    if(startTimeValue > endTimeValue){
+      this.setState({
+        isError: true,
+        error_message:"Start time cannot be bigger than end time."
+      });
+      return;
+    }
+
+    if(startTime === endTime){
+      this.setState({
+        isError: true,
+        error_message:"Start time cannot be the same with end time."
+      });
+      return;
+    }
+    
+    const req={
+      method:'editShift',
+      params:{
+        date:pickedDate,
+        start:startTime,
+        end:endTime,
+        id_staff:this.state.shiftData.id_staff,
+        id_shift:this.props.shiftID
+      }
+    };
+    const onSuccess=(response)=>{
+      if(response.error_message){
+        this.setState({
+          isError:true,
+          error_message: response.error_message,
+        });
+      } else {
+        this.setState({
+          isError:false,
+          error_message: "",
+        }, ()=>this.props.history.goBack());
+      }
+    }
+    const onError=(error)=>{
+      this.setState({
+        isError:true,
+        error_message: error.toString()
+      })
+    }
+    ApiService.open(req).then(onSuccess, onError);
+  }
+
   render(){
     const { option } = this.props;
     const { shiftData, staffDataFiltered } = this.state;
@@ -197,7 +289,7 @@ class ShiftOptions extends React.Component {
       <div className="table-responsive">
         <div className="container-fluid">
           <div className="row page-title align-items-center">
-            <div className="text-left col-6 p-0"><h3>ShiftOptions</h3></div>
+            <div className="text-left col-6 p-0"><h3>Shift Option - {this.props.option}</h3></div>
             <div className="text-right col-6 p-0">&nbsp;</div>
           </div>
         </div>
@@ -230,6 +322,30 @@ class ShiftOptions extends React.Component {
             <div className="d-flex justify-content-between">
               <button type="button" className="btn btn-warning col-5" onClick={()=>this.resetForm()}>Reset Form</button>
               <button type="button" className="btn btn-primary col-5" onClick={()=>this.handleSubmit()}>Submit Data</button>
+            </div>
+          </form>
+          :
+          option === "edit" && shiftData ?
+          <form>
+            <div className="form-group staff-list">
+              <label>Staff Name</label>
+              <input type="text" name="name" className="form-control" autoComplete="off" value={shiftData.name} onChange={(event)=>this.nameChange(event)}/>
+              <StaffList/>
+            </div>
+            <div className="form-group">
+              <label>Date</label>
+              <Datepicker dateChange={(value)=>this.selectDate(value)} isTime={false} editDate={shiftData.date}/>
+            </div>
+            <div className="form-group">
+              <label>Start Time</label>
+              <Datepicker dateChange={(value)=>this.selectTime(value, "start")} isTime={true} editDate={shiftData.date} editTime={shiftData.start}/>
+            </div>
+            <div className="form-group">
+              <label>End Time</label>
+              <Datepicker dateChange={(value)=>this.selectTime(value, "end")} isTime={true} editDate={shiftData.date} editTime={shiftData.end}/>
+            </div>
+            <div className="d-flex justify-content-between">
+              <button type="button" className="btn btn-primary col-5" onClick={()=>this.handleEdit()}>Save Changes</button>
             </div>
           </form>
           :

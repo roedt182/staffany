@@ -42,17 +42,23 @@ class ApiService extends React.Component {
         case "getShift":
           fetchURL = serverURLGet + '?method=getShift&session_id='+session_id;
           break;
+        case "getShiftDetail":
+          fetchURL = serverURLGet + '?method=getShiftDetail&session_id='+session_id+'&id_shift='+params.id_shift;
+          break;
         case "getStaff":
           fetchURL = serverURLGet + '?method=getStaff&session_id='+session_id;
           break;
         case "addShift":
           fetchURL = serverURLPost;
           break;
+        case "editShift":
+          fetchURL = serverURLPost;
+          break;
         default:
           fetchURL = serverURLGet;
       }
       
-      if(method === "login" || method === "addShift"){
+      if(method === "login" || method === "addShift" || method === "editShift"){
         fetch(fetchURL, { 
             method: "POST",
             body: JSON.stringify({ 
@@ -64,6 +70,7 @@ class ApiService extends React.Component {
               end:params.end,
               id_staff:params.id_staff,
               session_id:session_id,
+              id_shift: params.id_shift,
             }),
             headers: { 
                 "Content-type": "application/json; charset=UTF-8"
