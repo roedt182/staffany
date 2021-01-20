@@ -39,6 +39,9 @@ class ApiService extends React.Component {
         case "login":
           fetchURL = serverURLPost;
           break;
+        case "getShift":
+          fetchURL = serverURLGet + '?method=getShift&session_id='+session_id;;
+          break;
         default:
           fetchURL = serverURLGet;
       }
