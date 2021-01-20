@@ -1,15 +1,13 @@
 import React from 'react';
 import {connect} from "react-redux";
 import ApiService from "../../../api";
-import * as Icon from 'react-bootstrap-icons';
-import {
-  Link
-} from "react-router-dom";
 import Datepicker from '../../../components/Datepicker';
 
 let pickedDate = "";
 let startTime = "";
 let endTime = "";
+let startTimeValue = 0;
+let endTimeValue = 0;
 
 class ShiftOptions extends React.Component {
   constructor(props) {
@@ -100,8 +98,10 @@ class ShiftOptions extends React.Component {
     const getMinute = dateValue.getMinutes() < 10 ? "0"+dateValue.getMinutes() : dateValue.getMinutes();
     if(option === "start"){
       startTime = getHour+":"+getMinute;
+      startTimeValue = dateValue.getTime();
     } else {
       endTime = getHour+":"+getMinute;
+      endTimeValue = dateValue.getTime();
     }
   }
 
@@ -117,6 +117,30 @@ class ShiftOptions extends React.Component {
   }
 
   handleSubmit(){
+    if(!this.state.shiftData.id_staff){
+      this.setState({
+        isError: true,
+        error_message:"Please complete the form data."
+      });
+      return;
+    }
+
+    if(startTimeValue > endTimeValue){
+      this.setState({
+        isError: true,
+        error_message:"Start time cannot be bigger than end time."
+      });
+      return;
+    }
+
+    if(startTime === endTime){
+      this.setState({
+        isError: true,
+        error_message:"Start time cannot be the same with end time."
+      });
+      return;
+    }
+
     const req={
       method:'addShift',
       params:{
