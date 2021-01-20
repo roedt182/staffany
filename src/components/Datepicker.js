@@ -10,7 +10,15 @@ const DatePickerComponent = (props) => {
   const [startDate, setStartDate] = useState(new Date());
   useEffect(() => {props.dateChange(startDate);}, [props, startDate]);
   return (
-    <DatePicker selected={startDate} onChange={date => setStartDate(date)} dateFormat="dd/MM/yyyy"/>
+  	props.isTime ?
+    <DatePicker className="form-control" selected={startDate} onChange={date => setStartDate(date)} 
+      showTimeSelect
+      showTimeSelectOnly
+      timeIntervals={15}
+      timeCaption="Time"
+      dateFormat="h:mm aa"/>
+  	:
+    <DatePicker className="form-control" selected={startDate} onChange={date => setStartDate(date)} dateFormat="dd/MM/yyyy"/>
   );
 };
 

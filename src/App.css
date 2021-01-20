@@ -151,6 +151,30 @@ html, body, #root{
   border: 5px solid rgba(0,0,0,0.3);
 }
 
+.react-datepicker-wrapper,
+.react-datepicker-wrapper input[type="text"]{
+  width: 100%;
+}
+
+.staff-list{
+  position: relative;
+}
+
+.hide-list{
+  display: none;
+}
+
+.show-list{
+  display: block;
+  position: absolute;
+  top: 66px;
+  background: #fff;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  width: 100%;
+  z-index: 10;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

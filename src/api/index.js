@@ -40,20 +40,30 @@ class ApiService extends React.Component {
           fetchURL = serverURLPost;
           break;
         case "getShift":
-          fetchURL = serverURLGet + '?method=getShift&session_id='+session_id;;
+          fetchURL = serverURLGet + '?method=getShift&session_id='+session_id;
+          break;
+        case "getStaff":
+          fetchURL = serverURLGet + '?method=getStaff&session_id='+session_id;
+          break;
+        case "addShift":
+          fetchURL = serverURLPost;
           break;
         default:
           fetchURL = serverURLGet;
       }
       
-      if(method === "login"){
+      if(method === "login" || method === "addShift"){
         fetch(fetchURL, { 
             method: "POST",
             body: JSON.stringify({ 
               method: method,
               username: params.username, 
               password: params.password,
-              email: params.email,
+              date:params.date,
+              start:params.start,
+              end:params.end,
+              id_staff:params.id_staff,
+              session_id:session_id,
             }),
             headers: { 
                 "Content-type": "application/json; charset=UTF-8"
