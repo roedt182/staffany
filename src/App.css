@@ -1,3 +1,7 @@
+html, body, #root{
+  height: 100%;
+}
+
 .App {
   text-align: center;
 }
@@ -26,6 +30,125 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.main-container{
+  height: 90%;
+}
+
+.logout{
+  line-height: 18px;
+}
+
+.logout a{
+  color: #00b104;
+}
+
+.btn-logout,
+.btn-logout:hover,
+.btn-logout:focus{
+  color: #00b104;
+  background: none;
+  border:0;
+  outline: 0;
+}
+
+.header-dashboard{
+  background-color: #333;
+  color: #fff;
+  border-bottom: 5px solid #00b104;
+  height: 10%;
+  max-height: 70px;
+  align-items: center;
+}
+
+.content-dashboard{
+  min-height: 100%;
+}
+
+.login-screen{
+  align-items: center;
+  height: 100%;
+  background: #333;
+  justify-content: center;
+  display: flex;
+}
+
+.form-login{;
+  background-color: #eee;
+  border-radius: 10px;
+  border: 5px solid #aaa;
+  width: 350px;
+  float: left;
+}
+
+.loader{
+  top:0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+}
+.loader-hide{
+  display: none;
+}
+
+.page-title{
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 10px 0;
+}
+
+.sidebar{
+  background-color: #eee;
+}
+.sidebar a,
+.mobile-menu a{
+  color: #000;
+}
+.sidebar-menu{
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+.sidebar-menu svg{
+  float: left;
+  margin-right: 10px;
+}
+
+.mobile-menu .sidebar-menu{
+  width: 48%;
+  float: left;
+  border: 1px solid #ddd;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  padding: 50px 0;
+  border-radius: 7px;
+  margin: 1%;
+  box-shadow: 5px 5px 0 #eee;
+}
+
+.sessionWarning{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.warningPopup{
+  background: #fff;
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 10px;
+  border: 5px solid rgba(0,0,0,0.3);
 }
 
 @keyframes App-logo-spin {
