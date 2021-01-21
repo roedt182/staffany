@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import ApiService from "../../../api";
 import Datepicker from '../../../components/Datepicker';
+import ShiftChart from '../../../components/ShiftChart';
 
 let pickedDate = "";
 let startTime = "";
@@ -348,6 +349,9 @@ class ShiftOptions extends React.Component {
               <button type="button" className="btn btn-primary col-5" onClick={()=>this.handleEdit()}>Save Changes</button>
             </div>
           </form>
+          :
+          option === "view" && shiftData ?
+          <ShiftChart data={shiftData}/>
           :
           null
         }
