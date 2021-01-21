@@ -26,7 +26,7 @@ class FooterBack extends React.Component {
         </div>
         <div className="col-9">
           <button type="button" className="btn btn-block" onClick={()=>this.props.history.goBack()}>
-            <Icon.ChevronDoubleLeft/> Kembali
+            <Icon.ChevronDoubleLeft/> Go Back
           </button>
         </div>
       </div>

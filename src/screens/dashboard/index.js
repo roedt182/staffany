@@ -64,7 +64,7 @@ class Dashboard extends React.Component {
     return (
       <div className="main-container">
         <div className="d-flex header-dashboard">
-        	<div className="col-6 col-md-8"></div>
+        	<div className="col-6 col-md-8">Test - StaffAny</div>
         	<div className="col-6 col-md-4 text-right logout">
         		<Icon.PersonCircle width="32" height="32" color="#00b104"/> {this.props.loginData.username} | <button type="button" className="btn-logout" onClick={this.logout}>logout</button>
         	</div>

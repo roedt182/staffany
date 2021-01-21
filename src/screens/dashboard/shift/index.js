@@ -142,7 +142,7 @@ class Shift extends React.Component {
           <thead className="thead-dark">
             <tr>
               <th>Date</th>
-              <th>Shift</th>
+              <th className="d-none d-md-table-cell">Shift</th>
               <th>Start Time</th>
               <th>End Time</th>
               <th>Options</th>
@@ -155,7 +155,7 @@ class Shift extends React.Component {
               return(
                 <tr key={index}>
                   <td>{item.date}</td>
-                  <td>{shiftStartHour[0] < 8 ? "Morning" : (shiftStartHour[0] < 16 ? "Afternoon" : "Night")}</td>
+                  <td className="d-none d-md-table-cell">{shiftStartHour[0] < 8 ? "Morning" : (shiftStartHour[0] < 16 ? "Afternoon" : "Night")}</td>
                   <td>{item.start}</td>
                   <td>{item.end}</td>
                   <td>

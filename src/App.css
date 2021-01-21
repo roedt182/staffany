@@ -130,6 +130,20 @@ html, body, #root{
   margin: 1%;
   box-shadow: 5px 5px 0 #eee;
 }
+.mobile-menu .card-kelas{
+  position: relative;
+  width: 31%;
+  float: left;
+  border: 1px solid #ddd;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  padding: 50px 0;
+  border-radius: 7px;
+  margin: 20px 1%;
+  box-shadow: 5px 5px 0 #eee;
+  overflow: hidden;
+}
 
 .sessionWarning{
   position: absolute;
@@ -199,11 +213,51 @@ html, body, #root{
   font-size:14;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.back-button{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background: #ddd;
+}
+
+.back-button button{
+  background: #009b4c;
+  border-color: #00763a;
+  color: #ceeede;
+}
+button.btn-home{
+  background: #005a2c;
+  color: #fff;
+}
+.back-button button:hover{
+  color: #fff;
+}
+
+@media(max-width: 600px){
+  .header-title{
+    font-size: 22px;
   }
-  to {
-    transform: rotate(360deg);
+  .logout{
+    font-size: 12px;
+  }
+  .sidebar{
+    display: none;
+  }
+  .mobile-menu{
+    display: block;
+    float: left;
+    margin-bottom: 50px;
+    width: 100%;
+  }
+  .mobile-menu .sidebar-menu{
+    width: 96%;
+  }
+  table{
+    font-size: 12px;
+  }
+  .react-datepicker-wrapper{
+    margin-bottom: 10px;
   }
 }

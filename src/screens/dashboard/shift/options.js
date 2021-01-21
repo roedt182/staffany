@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import ApiService from "../../../api";
 import Datepicker from '../../../components/Datepicker';
 import ShiftChart from '../../../components/ShiftChart';
+import FooterBack from '../../../components/FooterBack';
 
 let pickedDate = "";
 let startTime = "";
@@ -249,8 +250,7 @@ class ShiftOptions extends React.Component {
       <div className="table-responsive">
         <div className="container-fluid">
           <div className="row page-title align-items-center">
-            <div className="text-left col-6 p-0"><h3>Shift Option - {this.props.option}</h3></div>
-            <div className="text-right col-6 p-0">&nbsp;</div>
+            <div className="text-left col-12 p-0"><h3>Shift Option - {this.props.option}</h3></div>
           </div>
         </div>
         {
@@ -304,6 +304,8 @@ class ShiftOptions extends React.Component {
           :
           null
         }
+        <div className="p-5">&nbsp;</div>
+        <FooterBack history={this.props.history}/>
       </div>
     );
   }
