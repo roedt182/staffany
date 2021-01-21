@@ -110,8 +110,8 @@ class Shift extends React.Component {
         <table className="table table-striped text-center">
           <thead className="thead-dark">
             <tr>
-              <th>Name</th>
               <th>Date</th>
+              <th>Shift</th>
               <th>Start Time</th>
               <th>End Time</th>
               <th>Options</th>
@@ -120,10 +120,11 @@ class Shift extends React.Component {
           <tbody>
           {
             this.state.shiftData.map((item,index)=>{
+              let shiftStartHour = item.start.split(":");
               return(
                 <tr key={index}>
-                  <td>{item.name}</td>
                   <td>{item.date}</td>
+                  <td>{shiftStartHour[0] < 8 ? "Morning" : (shiftStartHour[0] < 16 ? "Afternoon" : "Night")}</td>
                   <td>{item.start}</td>
                   <td>{item.end}</td>
                   <td>

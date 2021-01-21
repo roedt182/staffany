@@ -27,11 +27,11 @@ class ShiftOptions extends React.Component {
   componentDidMount(){
     const option = this.props.option;
     if(option === "add"){
-      this.getStaffData();
+      // this.getStaffData();
     } else if(option === "view"){
       this.getShiftDetail(this.props.shiftID)
     } else if(option === "edit"){
-      this.getStaffData();
+      // this.getStaffData();
       this.getShiftDetail(this.props.shiftID)
     }
   }
@@ -153,14 +153,6 @@ class ShiftOptions extends React.Component {
   }
 
   handleSubmit(){
-    if(!this.state.shiftData.id_staff){
-      this.setState({
-        isError: true,
-        error_message:"Please complete the form data."
-      });
-      return;
-    }
-
     if(startTimeValue > endTimeValue){
       this.setState({
         isError: true,
@@ -183,7 +175,7 @@ class ShiftOptions extends React.Component {
         date:pickedDate,
         start:startTime,
         end:endTime,
-        id_staff:this.state.shiftData.id_staff
+        id_staff:this.props.loginData.id
       }
     };
     const onSuccess=(response)=>{
@@ -209,14 +201,6 @@ class ShiftOptions extends React.Component {
   }
 
   handleEdit(){
-    if(!this.state.shiftData.id_staff){
-      this.setState({
-        isError: true,
-        error_message:"Please complete the form data."
-      });
-      return;
-    }
-
     if(startTimeValue > endTimeValue){
       this.setState({
         isError: true,
@@ -268,24 +252,6 @@ class ShiftOptions extends React.Component {
   render(){
     const { option } = this.props;
     const { shiftData, staffDataFiltered } = this.state;
-
-    const StaffList = () => {
-      return(
-        <div className={this.state.isSearch ? "show-list" : "hide-list"}>
-        {
-          staffDataFiltered ? (
-            staffDataFiltered.map((item, index)=>{
-              return(
-                <div key={index} onClick={item.id_staff ? ()=>this.setStaffName(item.id_staff, item.name) : null}>
-                  {item.name}
-                </div>
-              )
-            })
-          ) : null
-        }
-        </div>
-      );
-    }
     return (
       <div className="table-responsive">
         <div className="container-fluid">
@@ -303,11 +269,6 @@ class ShiftOptions extends React.Component {
         {
           option === "add" ?
           <form>
-            <div className="form-group staff-list">
-              <label>Staff Name</label>
-              <input type="text" name="name" className="form-control" autoComplete="off" value={shiftData.name} onChange={(event)=>this.nameChange(event)}/>
-              <StaffList/>
-            </div>
             <div className="form-group">
               <label>Date</label>
               <Datepicker dateChange={(value)=>this.selectDate(value)} isTime={false}/>
@@ -328,11 +289,6 @@ class ShiftOptions extends React.Component {
           :
           option === "edit" && shiftData ?
           <form>
-            <div className="form-group staff-list">
-              <label>Staff Name</label>
-              <input type="text" name="name" className="form-control" autoComplete="off" value={shiftData.name} onChange={(event)=>this.nameChange(event)}/>
-              <StaffList/>
-            </div>
             <div className="form-group">
               <label>Date</label>
               <Datepicker dateChange={(value)=>this.selectDate(value)} isTime={false} editDate={shiftData.date}/>

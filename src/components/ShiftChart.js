@@ -1,11 +1,12 @@
 import React from 'react';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Loader from 'react-loader-spinner';
 
 class ShiftChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      startChartBlock:0,
+      endChartBlock:0,
+      shiftTime: "",
       timeline:["00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"]
     };
   }
@@ -34,11 +35,13 @@ class ShiftChart extends React.Component {
 
     this.setState({
       startChartBlock: startChartBlock,
-      endChartBlock: endChartBlock
+      endChartBlock: endChartBlock,
+      shiftTime: startChartHour < 8 ? "Morning" : (startChartHour < 16 ? "Afternoon" : "Night")
     });
   }
 
   render(){
+    const { data } = this.props;
     return (
       <div style={{position:'relative'}}>
         {
@@ -51,14 +54,21 @@ class ShiftChart extends React.Component {
             )
           })
         }
-        <div style={{
-          position: 'absolute',
-          top: 30*Number(this.state.startChartBlock) + 11,
-          left: 100,
-          width: 100,
-          background: '#f00',
-          height: (30*Number(this.state.endChartBlock) - 30*Number(this.state.startChartBlock))
-        }}>&nbsp;</div>
+        {
+          data ? 
+          <div style={{
+            position: 'absolute',
+            top: 30*Number(this.state.startChartBlock) + 11,
+            left: 100,
+            width: 150,
+            background: '#f00',
+            height: (30*Number(this.state.endChartBlock) - 30*Number(this.state.startChartBlock)),
+            padding: 10,
+            color: '#fff'
+          }}>{this.state.shiftTime} Shift<br/>{data.date}<br/>{data.start+"-"+data.end}</div>
+          :
+          null
+        }
       </div>
     );
   }
