@@ -23,7 +23,7 @@ class Home extends React.Component {
           <div className="text-right col-6 p-0">&nbsp;</div>
         </div>
         <div className="mobile-menu">
-          <div className="sidebar-menu"><Link to="/shift"><Icon.Person width="22" height="22" color="#00b104"/> Shift Data</Link></div>
+          <div className="sidebar-menu"><Link to="/shift"><Icon.Person width="22" height="22" color="#50d9cd"/> Shift Data</Link></div>
         </div>
       </div>
     );

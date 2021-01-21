@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {connect} from "react-redux";
 import {setLoginData, setLoginStatus} from "./redux/actions";
 import ApiService from "./api";
+import logo from '../src/assets/logo.png';
 
 import Dashboard from "./screens/dashboard";
 import Popup from './components/Popup';
@@ -117,6 +118,12 @@ class App extends React.Component {
       :
       <div className="login-screen">
         <div className="form-login">
+          <div className="text-center logo-login mt-5">
+            <img src={logo} alt="logo-staffany" width="180"/>
+            <hr/>
+            Take Home Test - Rudi Susanto
+            <hr/>
+          </div>
           <form className="m-3 p-2">
             {
               this.state.isError ? <div className="alert alert-danger">{this.state.error_message}</div> : null

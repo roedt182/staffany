@@ -7,6 +7,7 @@ import { addTimeout, removeTimeout } from 'redux-timeout';
 import { SET_ACTIVITY } from '../../redux/actions/constants';
 import ApiService from "../../api";
 import Popup from '../../components/Popup';
+import logo from '../../../src/assets/logo.png';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -64,9 +65,9 @@ class Dashboard extends React.Component {
     return (
       <div className="main-container">
         <div className="d-flex header-dashboard">
-        	<div className="col-6 col-md-8">Test - StaffAny</div>
+        	<div className="col-6 col-md-8"><img src={logo} alt="logo-staffany" width="120"/></div>
         	<div className="col-6 col-md-4 text-right logout">
-        		<Icon.PersonCircle width="32" height="32" color="#00b104"/> {this.props.loginData.username} | <button type="button" className="btn-logout" onClick={this.logout}>logout</button>
+        		<Icon.PersonCircle width="32" height="32" color="#50d9cd"/> {this.props.loginData.username} | <button type="button" className="btn-logout" onClick={this.logout}>logout</button>
         	</div>
         </div>
         <div className="d-flex content-dashboard">
@@ -85,11 +86,11 @@ class Dashboard extends React.Component {
         }
         <div className={this.state.popupLogout ? "sessionWarning" : "d-none"}>
           <div className="warningPopup">
-            <Icon.BoxArrowRight width="60" height="60" color="#00b104"/>
+            <Icon.BoxArrowRight width="60" height="60" color="#50d9cd"/>
             <hr/>
             <p>Confirm logout and exit the app?</p>
-            <button type="button" className="btn btn-success btn-block" onClick={this.confirmLogout}>Yes</button><br/>
-            <button type="button" className="btn btn-danger btn-block" onClick={this.cancelLogout}>Cancel</button>
+            <button type="button" className="btn btn-primary btn-block" onClick={this.confirmLogout}>Yes</button><br/>
+            <button type="button" className="btn btn-warning btn-block" onClick={this.cancelLogout}>Cancel</button>
           </div>
         </div>
         <Popup display={this.props.inProgress}/>

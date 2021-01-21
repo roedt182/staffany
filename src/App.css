@@ -41,13 +41,13 @@ html, body, #root{
 }
 
 .logout a{
-  color: #00b104;
+  color: #50d9cd;
 }
 
 .btn-logout,
 .btn-logout:hover,
 .btn-logout:focus{
-  color: #00b104;
+  color: #50d9cd;
   background: none;
   border:0;
   outline: 0;
@@ -56,7 +56,7 @@ html, body, #root{
 .header-dashboard{
   background-color: #333;
   color: #fff;
-  border-bottom: 5px solid #00b104;
+  border-bottom: 5px solid #50d9cd;
   height: 10%;
   max-height: 70px;
   align-items: center;
@@ -205,7 +205,8 @@ html, body, #root{
   position: absolute;
   left: 100px;
   width: 150px;
-  background: #006604;
+  background: rgb(149,75,75);
+  background: linear-gradient(180deg, rgba(149,75,75,1) 0%, rgba(224,115,115,1) 100%, rgba(80,217,205,1) 100%, rgba(224,115,115,1) 100%);
   padding: 10px;
   color: #fff;
   border-radius: 5px;
@@ -223,16 +224,25 @@ html, body, #root{
 }
 
 .back-button button{
-  background: #009b4c;
-  border-color: #00763a;
+  background: #348f87;
+  border-color: #348f87;
   color: #ceeede;
 }
 button.btn-home{
-  background: #005a2c;
+  background: #225c57;
   color: #fff;
 }
 .back-button button:hover{
   color: #fff;
+}
+.btn-primary{
+  background-color: #50d9cd !important;
+  border-color: #4bc8bd !important;
+}
+.btn-warning{
+  background-color: #f37b7b !important;
+  border-color: #e07373 !important;
+  color: #fff !important;
 }
 
 @media(max-width: 600px){
