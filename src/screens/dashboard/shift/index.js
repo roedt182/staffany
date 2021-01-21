@@ -84,6 +84,41 @@ class Shift extends React.Component {
     }
   }
 
+  confirmPublish(shiftID){
+    if(window.confirm("Publish this Shift: ID = "+shiftID+" ?")){
+      const req={
+        method:'publishShift',
+        params:{
+          id_shift: shiftID
+        }
+      };
+      const onSuccess=(response)=>{
+        if(response.error_message){
+          this.setState({
+            isError:true,
+            error_message: response.error_message,
+          });
+        } else {
+          this.setState({
+            isError:false,
+            error_message: "",
+            message: response.message
+          });
+          this.getShift();
+        }
+      }
+      const onError=(error)=>{
+        this.setState({
+          isError:true,
+          error_message: error.toString()
+        })
+      }
+      ApiService.open(req).then(onSuccess, onError);
+    } else {
+      // console.log("cancel");
+    }
+  }
+
   render(){
     return (
       <div className="table-responsive">
@@ -125,8 +160,9 @@ class Shift extends React.Component {
                   <td>{item.end}</td>
                   <td>
                     <button className="btn"><Link to={'/shift/view/'+item.id_shift}><Icon.Binoculars/></Link></button>
-                    <button className="btn"><Link to={'/shift/edit/'+item.id_shift}><Icon.PencilSquare/></Link></button>
-                    <button className="btn btn-link" onClick={()=>this.confirmDelete(item.id_shift)}><Icon.Trash/></button>
+                    <button style={item.status === '2' ? {display:'none'} : null} className="btn"><Link to={'/shift/edit/'+item.id_shift}><Icon.PencilSquare/></Link></button>
+                    <button style={item.status === '2' ? {display:'none'} : null} className="btn btn-link" onClick={()=>this.confirmDelete(item.id_shift)}><Icon.Trash/></button>
+                    <button style={item.status === '2' ? {display:'none'} : null} className="btn btn-link" onClick={()=>this.confirmPublish(item.id_shift)}><Icon.Cursor/></button>
                   </td>
                 </tr>
               )

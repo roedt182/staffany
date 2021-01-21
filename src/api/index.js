@@ -57,6 +57,9 @@ class ApiService extends React.Component {
         case "deleteShift":
           fetchURL = serverURLPost;
           break;
+        case "publishShift":
+          fetchURL = serverURLPost;
+          break;
         case "editShift":
           fetchURL = serverURLPost;
           break;
@@ -64,7 +67,7 @@ class ApiService extends React.Component {
           fetchURL = serverURLGet;
       }
       
-      if(method === "login" || method === "addShift" || method === "editShift" || method === "deleteShift"){
+      if(method === "login" || method === "addShift" || method === "editShift" || method === "deleteShift" || method === "publishShift"){
         fetch(fetchURL, { 
             method: "POST",
             body: JSON.stringify({ 
