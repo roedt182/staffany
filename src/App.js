@@ -57,7 +57,8 @@ class App extends React.Component {
     if(!this.state.username || !this.state.password){
       this.setState({
         isError: true,
-        error_message: "Please fill your username and password."
+        error_message: "Please fill your username and password.",
+        inProgress: false
       });
       return;
     }
