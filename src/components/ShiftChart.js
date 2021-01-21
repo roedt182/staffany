@@ -1,5 +1,8 @@
 import React from 'react';
+import Datepicker from "./Datepicker.js";
 import ApiService from "../api";
+
+let pickedDate = "";
 
 class ShiftChart extends React.Component {
   constructor(props) {
@@ -19,11 +22,11 @@ class ShiftChart extends React.Component {
     }
   }
 
-  getShiftOfDay(){
+  getShiftOfDay(date){
     const req={
       method:'getShiftOfDay',
       params:{
-        date: this.props.data.date
+        date: date ? date : this.props.data.date
       }
     };
     const onSuccess=(response)=>{
@@ -31,6 +34,7 @@ class ShiftChart extends React.Component {
         this.setState({
           isError:true,
           error_message: response.error_message,
+          shiftOfDayList: null
         });
       } else {
         this.setState({
@@ -50,45 +54,72 @@ class ShiftChart extends React.Component {
     ApiService.open(req).then(onSuccess, onError);
   }
 
+  selectDate(date){
+    const dateValue = new Date(date);
+    let getDate = dateValue.getDate() < 10 ? "0"+dateValue.getDate() : dateValue.getDate();
+    let getMonth = dateValue.getMonth() < 9 ? "0"+(dateValue.getMonth() + 1) : dateValue.getMonth() + 1;
+    const getYear = dateValue.getFullYear();
+    const selectedDate = getYear + '-' + getMonth + '-' + getDate;
+    pickedDate = selectedDate;
+  }
+
   render(){
     const { data } = this.props;
     return (
-      <div style={{position:'relative'}}>
+      <div>
         {
-          this.state.timeline.map((item, index)=>{
-            return(
-              <div key={index} className="timeline">
-                <span>{item}</span>
-                <hr/>
-              </div>
-            )
-          })
+          this.state.isError ? <div className="alert alert-danger">{this.state.error_message}</div> : null
         }
         {
-          this.state.shiftOfDayList ? 
-          this.state.shiftOfDayList.map((item,index)=>{
-            let shiftData = item;
-            let startChartArray = shiftData && shiftData.start ? shiftData.start.split(":") : [];
-            let startChartMinute = startChartArray.length > 0 ? Math.floor(startChartArray[1]/60*100) : 0;
-            let startChartHour = startChartArray.length > 0 ? startChartArray[0] : 0;
-            let startChartBlock = startChartHour+"."+startChartMinute;
-
-            let endChartArray = shiftData && shiftData.end ? shiftData.end.split(":") : [];
-            let endChartMinute = endChartArray.length > 0 ? Math.floor(endChartArray[1]/60*100) : 0;
-            let endChartHour = endChartArray.length > 0 ? endChartArray[0] : 0;
-            let endChartBlock = endChartHour+"."+endChartMinute;
-
-            let shiftTime = startChartHour < 8 ? "Morning" : (startChartHour < 16 ? "Afternoon" : "Night");
-            return(
-              <div className="shiftItem" key={index} style={{
-                top: 30*Number(startChartBlock) + 11,
-                height: (30*Number(endChartBlock) - 30*Number(startChartBlock))
-              }}>{shiftTime} Shift<br/>{item.date}<br/>{item.start+"-"+item.end}</div>
-            )
-          })
-          :
-          null
+          this.state.message ? <div className="alert alert-success">{this.state.message}</div> : null
         }
+        <label>Shift Date:</label>
+        <div className="row">
+          <div className="col-md-9">
+            <Datepicker dateChange={(value)=>this.selectDate(value)} isTime={false} editDate={data.date}/>
+          </div>
+          <div className="col-md-3">
+            <button className="btn btn-primary btn-block" onClick={()=>this.getShiftOfDay(pickedDate)}>Search</button>
+          </div>
+        </div>
+        <hr/>
+        <div style={{position:'relative'}}>
+          {
+            this.state.timeline.map((item, index)=>{
+              return(
+                <div key={index} className="timeline">
+                  <span>{item}</span>
+                  <hr/>
+                </div>
+              )
+            })
+          }
+          {
+            this.state.shiftOfDayList ? 
+            this.state.shiftOfDayList.map((item,index)=>{
+              let shiftData = item;
+              let startChartArray = shiftData && shiftData.start ? shiftData.start.split(":") : [];
+              let startChartMinute = startChartArray.length > 0 ? Math.floor(startChartArray[1]/60*100) : 0;
+              let startChartHour = startChartArray.length > 0 ? startChartArray[0] : 0;
+              let startChartBlock = startChartHour+"."+startChartMinute;
+
+              let endChartArray = shiftData && shiftData.end ? shiftData.end.split(":") : [];
+              let endChartMinute = endChartArray.length > 0 ? Math.floor(endChartArray[1]/60*100) : 0;
+              let endChartHour = endChartArray.length > 0 ? endChartArray[0] : 0;
+              let endChartBlock = endChartHour+"."+endChartMinute;
+
+              let shiftTime = startChartHour < 8 ? "Morning" : (startChartHour < 16 ? "Afternoon" : "Night");
+              return(
+                <div className="shiftItem" key={index} style={{
+                  top: 30*Number(startChartBlock) + 11,
+                  height: (30*Number(endChartBlock) - 30*Number(startChartBlock))
+                }}>{shiftTime} Shift<br/>{item.date}<br/>{item.start+"-"+item.end}</div>
+              )
+            })
+            :
+            null
+          }
+        </div>
       </div>
     );
   }
