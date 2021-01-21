@@ -51,6 +51,9 @@ class ApiService extends React.Component {
         case "getStaff":
           fetchURL = serverURLGet + '?method=getStaff&session_id='+session_id;
           break;
+        case "getReport":
+          fetchURL = serverURLGet + '?method=getReport&session_id='+session_id+'&id_staff='+params.id_staff;
+          break;
         case "addShift":
           fetchURL = serverURLPost;
           break;

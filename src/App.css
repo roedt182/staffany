@@ -263,6 +263,7 @@ button.btn-home{
   }
   .mobile-menu .sidebar-menu{
     width: 96%;
+    margin-bottom: 10px;
   }
   table{
     font-size: 12px;

@@ -24,6 +24,7 @@ class Home extends React.Component {
         </div>
         <div className="mobile-menu">
           <div className="sidebar-menu"><Link to="/shift"><Icon.Person width="22" height="22" color="#50d9cd"/> Shift Data</Link></div>
+          <div className="sidebar-menu"><Link to="/report"><Icon.Files width="22" height="22" color="#50d9cd"/> Report</Link></div>
         </div>
       </div>
     );

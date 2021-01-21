@@ -12,6 +12,7 @@ import * as Icon from 'react-bootstrap-icons';
 import Home from "../screens/dashboard/home/home";
 import Shift from "../screens/dashboard/shift/";
 import ShiftOptions from "../screens/dashboard/shift/options";
+import Report from "../screens/dashboard/report/";
 
 import { createBrowserHistory } from "history";
 
@@ -23,13 +24,18 @@ export default function MainNavigation(props) {
       <div className="sidebar col-4 col-md-2">
         <div className="sidebar-menu"><Link to="/"><Icon.House width="22" height="22" color="#666"/> Home</Link></div>
         <div className="sidebar-menu"><Link to="/shift"><Icon.Person width="22" height="22" color="#666"/> Shift Data</Link></div>
+        <div className="sidebar-menu"><Link to="/report"><Icon.Person width="22" height="22" color="#666"/> Report</Link></div>
       </div>
       <div className="main-dashboard col-12 col-md-10">
         <Switch>
           <Route exact path="/">
             <Home />
-          </Route><Route path="/shift">
+          </Route>
+          <Route path="/shift">
             <ShiftFunction />
+          </Route>
+          <Route path="/report">
+            <ReportFunction />
           </Route>
         </Switch>
       </div>
@@ -64,6 +70,17 @@ function ShiftOption() {
       </Route>
       <Route exact path={`${path}`}>
         <ShiftOptions history={customHistory} option={option}/>
+      </Route>
+    </Switch>
+  );
+}
+
+function ReportFunction() {
+  let { path } = useRouteMatch();
+  return (
+    <Switch>
+      <Route exact path={path}>
+        <Report history={customHistory}/>
       </Route>
     </Switch>
   );
