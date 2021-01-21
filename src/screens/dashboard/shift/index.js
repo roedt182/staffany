@@ -49,12 +49,12 @@ class Shift extends React.Component {
     ApiService.open(req).then(onSuccess, onError);
   }
 
-  confirmDelete(staffID){
-    if(window.confirm("Delete this Staff: ID = "+staffID+" ?")){
+  confirmDelete(shiftID){
+    if(window.confirm("Delete this Shift: ID = "+shiftID+" ?")){
       const req={
-        method:'deleteStaff',
+        method:'deleteShift',
         params:{
-          staffID: staffID
+          id_shift: shiftID
         }
       };
       const onSuccess=(response)=>{
@@ -82,10 +82,6 @@ class Shift extends React.Component {
     } else {
       // console.log("cancel");
     }
-  }
-
-  deleteData(id_shift){
-    console.log("id_shift", id_shift)
   }
 
   render(){
@@ -130,7 +126,7 @@ class Shift extends React.Component {
                   <td>
                     <button className="btn"><Link to={'/shift/view/'+item.id_shift}><Icon.Binoculars/></Link></button>
                     <button className="btn"><Link to={'/shift/edit/'+item.id_shift}><Icon.PencilSquare/></Link></button>
-                    <button className="btn btn-link" onClick={()=>this.deleteData(item.id_shift)}><Icon.Trash/></button>
+                    <button className="btn btn-link" onClick={()=>this.confirmDelete(item.id_shift)}><Icon.Trash/></button>
                   </td>
                 </tr>
               )
