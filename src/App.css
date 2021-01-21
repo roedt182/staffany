@@ -187,6 +187,18 @@ html, body, #root{
   margin-top: -13px;
 }
 
+.shiftItem{
+  position: absolute;
+  left: 100px;
+  width: 150px;
+  background: #006604;
+  padding: 10px;
+  color: #fff;
+  border-radius: 5px;
+  text-align:center;
+  font-size:14;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

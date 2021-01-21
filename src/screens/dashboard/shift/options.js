@@ -101,15 +101,8 @@ class ShiftOptions extends React.Component {
         name: event.target.value,
       },
       isSearch: event.target.value ? true : false
-    }, ()=>this.filterStaff(this.state.staffData, event.target.value));
-  };
-
-  filterStaff(array, string) {
-    let newList = array.filter(o => Object.keys(o).some(k => o[k].toLowerCase().includes(string.toLowerCase())));
-    this.setState({
-      staffDataFiltered: newList.length > 0 ? newList : [{name:"No Result."}]
     });
-  }
+  };
 
   resetForm = () => {
     this.setState({
@@ -251,7 +244,7 @@ class ShiftOptions extends React.Component {
 
   render(){
     const { option } = this.props;
-    const { shiftData, staffDataFiltered } = this.state;
+    const { shiftData } = this.state;
     return (
       <div className="table-responsive">
         <div className="container-fluid">
